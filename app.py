@@ -5,7 +5,7 @@ st.set_page_config(page_title="Next Goal 4-Step", page_icon="⚽", layout="cente
 
 # ----- PARAMETRI BASE -----
 PROFIT_TARGETS = [1.5, 1.5, 1.5, 0]      # Utile target step 1-3, pari allo step 4
-PROGRESSIONE_FISSA = [3.0, 5.0, 7.0, 10.0]
+PROGRESSIONE_FISSA = [2.5, 5.0, 7.0, 10.0]
 
 # ----- STATO INIZIALE -----
 if "step" not in st.session_state:
@@ -19,7 +19,7 @@ st.title("⚽ Next Goal 4-Step Manager")
 
 st.markdown(
     "Sistema a 4 step per il **prossimo goal**.\n\n"
-    "- Step 1: stake fisso 3 €.\n"
+    "- Step 1: stake fisso 2.5 €.\n"
     "- Step 2-3-4: stake calcolato per recuperare le perdite + utile (1,50 € sui primi 3, pari al 4°).\n"
 )
 
@@ -33,13 +33,13 @@ modalita = st.sidebar.radio(
 
 if modalita.startswith("Recupero"):
     st.sidebar.info(
-        "Step 1 fisso a 3 €.\n"
+        "Step 1 fisso a 2.5 €.\n"
         "Step 2-3-4: stake = (perdite cumulative + target) / (quota - 1).\n"
         "Target utile: +1,50 € agli step 2-3, pari allo step 4."
     )
 else:
     st.sidebar.info(
-        "Progressione fissa: stake 3-5-7-10 indipendenti dalla quota."
+        "Progressione fissa: stake 2.5-5-7-10 indipendenti dalla quota."
     )
 
 st.divider()
@@ -69,8 +69,8 @@ if modalita.startswith("Progressione"):
     stake_consigliato = PROGRESSIONE_FISSA[step_corrente - 1]
 else:
     if step_corrente == 1:
-        # Step 1 fisso 3 €
-        stake_consigliato = 3.00
+        # Step 1 fisso 2.5 €
+        stake_consigliato = 2.50
     else:
         # Step 2-3-4 dinamici: stake = (perdite + target) / (quota - 1)
         profit_target = PROFIT_TARGETS[step_corrente - 1]
